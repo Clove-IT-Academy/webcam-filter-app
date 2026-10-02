@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webcam-filter-app"
+version = "0.1.0"
+description = "A local desktop webcam preview with simple visual effects."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy==2.5.3",
+    "opencv-python==5.0.0.93",
+]
+
+[project.scripts]
+webcam-filter-app = "webcam_filter_app.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

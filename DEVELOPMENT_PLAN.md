@@ -217,14 +217,22 @@ Update this table during Phase 1/2. Use `Open` until supported by an explicit de
 
 | Decision | Status | Decision / evidence |
 | --- | --- | --- |
-| Supported operating systems and minimum versions | Open | |
-| Python version and tested OpenCV/dependency versions | Open | |
-| Target camera models/hardware | Open | |
-| Default camera index vs camera selection | Open | |
-| Effect and quit shortcuts | Open | |
-| Source execution vs standalone packaging | Open | |
-| Measured responsiveness acceptance | Open | |
-| Maintainer, issue route, dependency cadence | Open | |
+| Supported operating systems and minimum versions | Open | Development ran on macOS 27.0 ARM64; physical camera and GUI flow still require manual verification before claiming support. |
+| Python version and tested OpenCV/dependency versions | Selected for initial implementation | Python >=3.12; development venv is Python 3.14.7 with OpenCV 5.0.0.93 and NumPy 2.5.3. Automated tests pass in this environment. |
+| Target camera models/hardware | Open | No physical camera integration check recorded yet. |
+| Default camera index vs camera selection | Selected for v1 | Use default camera index 0; camera selection remains out of scope. |
+| Effect and quit shortcuts | Selected for v1 | 1 original, 2 grayscale, 3 shape, 4 text, Q/q or Escape to quit. |
+| Source execution vs standalone packaging | Selected for v1 | Source execution and editable installation; no standalone packaging in v1. |
+| Measured responsiveness acceptance | Open | Measure on chosen target hardware before setting a performance target. |
+| Maintainer, issue route, dependency cadence | Open | Assign before release. |
+
+## Implementation status (2026-10-02)
+
+- Implemented the package structure, camera/display adapters, frame validation/effects, application loop, CLI entry point, pinned dependency metadata, README, and synthetic-frame/fake-adapter tests.
+- On macOS, the camera adapter explicitly selects AVFoundation and logs its selected backend. The preview shows a warning after 30 consecutive frames with no sampled nonzero pixels; this does not identify a unique cause.
+- Ran `./venv/bin/python -m unittest discover -s tests -v`: 10 tests passed.
+- The app has not yet been manually opened against a physical camera. OS permission behavior, window-close behavior, camera disconnection, and responsiveness remain release checks from Phases 3 and 6.
+- No source-based clean-install check has been recorded; editable installation succeeded in the development venv.
 
 ## Source
 
